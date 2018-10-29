@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Samaritan | Data</title>
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" type="text/css" />
+    <link rel="stylesheet" href="/assets/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="/assets/images/logo.svg" height="30" alt="" />
+        </a>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Datasets</h1>
+
+            The data containing the metrics collected from four open-source projects are split by the metric. The table shown below provides an overview of the size of the dataset and a link to download the dataset.
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-lg-center">
+          <div class="col-lg-8">
+            <table class="table table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Metric</th>
+                  <th scope="col"># Rows</th>
+                  <th scope="col">Compressed Size</th>
+                  <th scope="col">Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">Churn</td>
+                  <td>1,511,557</td>
+                  <td>3.36 MB</td>
+                  <td><a href="/assets/data/churn.csv.gz" target="_blank">Download</a></td>
+                </tr>
+                <tr>
+                  <td scope="row">Lines of Code</td>
+                  <td>1,692,122</td>
+                  <td>1.53 MB</td>
+                  <td><a href="/assets/data/loc.csv.gz" target="_blank">Download</a></td>
+                </tr>
+                <tr>
+                  <td scope="row">Collaboration Centrality</td>
+                  <td>1,511,557</td>
+                  <td>1.90MB</td>
+                  <td><a href="/assets/data/collaboration.csv.gz" target="_blank">Download</a></td>
+                </tr>
+                <tr>
+                  <td scope="row">Contribution Centrality</td>
+                  <td>1,511,557</td>
+                  <td>2.31MB</td>
+                  <td><a href="/assets/data/contribution.csv.gz" target="_blank">Download</a></td>
+                </tr>
+              </tbody>
+              </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Distributions</h1>
+
+            The distributions of churn, lines of code, collaboration, and contribution metrics are shown in Figures 1.1 thru 1.4, respectively. The metrics were collected from four open-source projects, namely Chromium, Firefox, Linux, and OpenBSD.
+          </div>
+        </div>
+        <div class="row justify-content-lg-center">
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/churn.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 1.1</figcaption>
+              </figure>
+          </div>
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/loc.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 1.2</figcaption>
+              </figure>
+          </div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/collaboration.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 1.3</figcaption>
+              </figure>
+          </div>
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/contribution.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 1.4</figcaption>
+              </figure>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Comparisons</h1>
+
+            The boxplots shown in Figures 2.1 thru 2.4 respectively compare the distributions of churn, lines of code, collaboration, and contribution metrics between two populations of source code files, namely those with known historical security vulnerabilities (i.e. offender) and those with no known historical security vulnerabilities. The metrics were collected from four open-source projects, namely Chromium, Firefox, Linux, and OpenBSD.
+          </div>
+        </div>
+         <div class="row justify-content-lg-center">
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/comchurn.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 2.1</figcaption>
+              </figure>
+          </div>
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/comsloc.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 2.2</figcaption>
+              </figure>
+          </div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/comcollaboration.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 2.3</figcaption>
+              </figure>
+          </div>
+          <div class="col-lg-auto">
+              <figure class="figure">
+                <img src="/assets/images/plots/comcontribution.svg" class="figure-img rounded mx-auto d-block" alt="" height="500" />
+                <figcaption class="figure-caption bg-light font-weight-bold text-center">Figure 2.4</figcaption>
+              </figure>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
