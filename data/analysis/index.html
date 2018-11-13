@@ -268,7 +268,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Qualitative</h3>
+          <h3 id="generalizability-qualitative">Qualitative</h3>
 
           <p>Shown in Figures 2.1 through 2.4 are the comparative box and violin plots comparing the distribution of churn,
             collaboration centrality, contribution centrality, and lines of code, respectively, in each of the four open-source
@@ -321,7 +321,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Quantitative</h3>
+          <h3 id="generalizability-quantitative">Quantitative</h3>
 
           <p>The qualitative assessment provides preliminary insight about the generalizability of the metrics across projects.
             We have to supplement the qualitative assessment with quantitative evidence to make objective assessment of the
@@ -627,7 +627,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Summary</h3>
+          <h3 id="generalizability-summary">Summary</h3>
 
           <p>The qualitative and quantitative assessment provide sufficient evidence to conclude that churn, lines of code, and
             contribution are generalizable across projects. The effect of this assessment is that a predictive model that uses
@@ -710,7 +710,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Discriminatory Power</h3>
+          <h3 id="discriminatory-power">Discriminatory Power</h3>
 
           <p>In an approach similar to that used to assess the generalizability of the metrics earlier, we used qualitative and
             quantitative assessments to assess the discriminatory power of the metrics to separate source code files with
@@ -723,7 +723,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h4>Qualitative</h4>
+          <h4 id="discriminatory-qualitative">Qualitative</h4>
 
           <p>Shown in Figure 3 is a comparative box plot of the four continuous-valued metrics separated by the value of the offender metric.</p>
         </div>
@@ -750,7 +750,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h4>Quantitative</h4>
+          <h4 id="discriminatory-quantitative">Quantitative</h4>
 
           <p>We supplemented the insight gained from the qualitative analysis with evidence from quantitative analysis using
             Mann-Whitney-Wilcoxon test and Cliff's δ. Earlier, we used Mann-Whitney-Wilcoxon test and Cliff's δ to assess if the
@@ -872,7 +872,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Experimental Setup</h3>
+          <h3 id="experimental-setup">Experimental Setup</h3>
 
           <p>The setup experimental used in the model building experiment are as follows:</p>
 
@@ -896,7 +896,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Feature Selection</h3>
+          <h3 id="feature-selection">Feature Selection</h3>
 
           <p>As mentioned earlier, some of the metrics are correlated with one another and thus must be removed. We chose to
             leverage <a href="https://topepo.github.io/caret/recursive-feature-elimination.html" target="_blank">recursive
@@ -913,7 +913,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Training and Testing</h3>
+          <h3 id="training-testing">Training and Testing</h3>
 
           <p>We chose to train and test a logistic regression model as it lends itself to interpretation of the metrics'
             contribution to the odds of a source code file having been an offender. We built two versions of the same model with
@@ -1059,7 +1059,7 @@ Number of Fisher Scoring iterations: 8
     <div class="row">
       <div class="col-lg-12">
         <div>
-          <h3>Path Forward</h3>
+          <h3 id="path-forward">Path Forward</h3>
 
           <p>The performance of the predictive model does not inspire confidence. However, we propose to not use the metrics as
             mere features in a predictive model black-box but rather as agents of empirically-derived feedback. For instance, we
@@ -1067,7 +1067,7 @@ Number of Fisher Scoring iterations: 8
             about the potential impact their change to a source code file could have the odds of a file having an undiscovered
             security vulnerability.</p>
 
-          <h4>Scenario</h4>
+          <h4 id="scenario">Scenario</h4>
 
           <p>Assume that a developer contributed a change to a file by adding 176 lines of code and deleting 34 lines of code.
             The (total) churn in this change is 176 + 34 = 210 lines of code. If we used the interpretation of the <code>glm</code>
