@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Samaritan | Data Analysis</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" type="text/css" />
+  <link rel="stylesheet" href="/assets/styles/global.css" type="text/css" />
+  <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+    integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="/assets/images/logo.svg" height="30" alt="" />
+    </a>
+  </nav>
+  <div class="container">
+    <!-- Introduction -->
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 id="introduction">Introduction</h1>
+
+        <p>The subsections that follow provide an overview of the preliminary exploratory data analysis performed on the <a
+            href="/data/#dataset">samaritan dataset</a>. The first part of the analysis involved understanding the statistical
+          properties (such as distribution) of the metrics and assessing their generalizability. The second part of the
+          analysis involved assessing the ability of the metrics to predict known offenders in a subset of the dataset.</p>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 id="metrics">Metrics</h1>
+
+        <p>The <a href="/data/#dataset">samaritan dataset</a> contains four continuous-valued metrics collected from four
+          popular open-source projects (Chromium, Firefox, Linux, and OpenBSD) spanning two domains (browser and operating
+          system). In addition to the four continuous-valued metrics, the dataset also contains one boolean-valued metric which
+          was collected only from the Chromium project.</p>
+
+        <p>The four continuous-valued metrics contained in the dataset are:</p>
+
+        <ul>
+          <li>
+            <b>Churn</b> <i>Churn</i> of a source code file is the total number of lines added and deleted throughout the life
+            the file <a href="#zimmermann2010searching">[1]</a>.
+          </li>
+          <li>
+            <b>Collaboration Centrality</b> <i>Collaboration centrality</i> of a source code file is the edge betweenness
+            centrality of the edges in a developer collaboration network <a href="#meneely2009secure">[2]</a>. A developer
+            collaboration network is an undirected graph in which the nodes represent the developers. An edge exists between
+            two nodes if the developers represented by the nodes contributed a change to the file that the edge represents.
+          </li>
+          <li>
+            <b>Contribution Centrality</b> <i>Contribution centrality</i> of a source code file is the node betweenness
+            centrality of the nodes in a developer contribution network <a href="#meneely2009secure">[2]</a>. A developer
+            contribution network is a bipartite graph composed from two types of nodes: developers and files. An edge exists
+            between a developer node and a file node if the developer contributed a change to the file.
+          </li>
+          <li>
+            <b>Lines of Code</b> <i>Lines of code</i> of a source code file is the total number of (source) lines of code in
+            the file <a href="#zimmermann2010searching">[1]</a>.
+          </li>
+        </ul>
+
+        <p>The one boolean-valued metric contained in the dataset (available only for the Chromium project) is:</p>
+
+        <ul>
+          <li>
+            <b>Offender</b> <i>Offender</i> for a source code file is <code>TRUE</code> if the file was fixed for a vulnerability in the
+            past, <code>FALSE</code> otherwise <a href="#meneely2013patch">[3]</a>.
+          </li>
+        </ul>
+
+        <p>The <i>offender</i> metric may be thought of as the dependent variable while the <i>churn</i>, <i>collaboration
+            centrality</i>, <i>contribution centrality</i>, and <i> lines of code</i> metrics may be though of as the
+          independent variables.</p>
+
+        <p style="font-style: italic;">
+          The goal of the exploratory data analysis is twofold:
+        </p>
+
+        <ol style="font-style: italic;">
+          <li>Generalizability: The four continuous-valued metrics considered in this phase of the study have been evaluated
+            in multiple research studies. The subjects of studies (i.e. the software projects considered in the research
+            study) in each of these research studies may have been different and, as a result, the generalizability of the
+            metrics is largely unexplored.</li>
+          <li>Usability: The four continuous-valued metrics considered in this phase of the study have been shown to be
+            effective predictors of security vulnerabilities in software. However, the measure of effectiveness has
+            predominantly been based on model performance evaluation metrics such as precision, recall, and f-measure. The
+            interpretability and actionability of the metrics are seldom considered.</li>
+        </ol>
+
+        <p>In accomplishing the aforementioned goals, we hope to identify those metrics that are generalizable, interpretable,
+          and actionable in assisting software developers to discover security vulnerabilities in software.</p>
+      </div>
+    </div>
+
+    <!-- Metrics > Statistical Properties -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h2 id="statistical-properties">Statistical Properties</h2>
+
+          <p>Before we can subject the metrics to any sort of statistical analysis (qualitative or quantitative), we must first
+            assess the fundamental statistical properties of the metrics. We begin by presenting summary of the metrics' values,
+            plot of the distribution of the metrics' values, and outcome from a test to check if the metrics are normally
+            distributed.</p>
+
+          <div class="alert alert-warning" role="alert">
+            <span class="oi oi-warning" title="warning" aria-hidden="true"></span> The dataset used in the preliminary exploratory
+            data analysis is filtered to only consider source code files written in the <code>C</code> or <code>C++</code>. We
+            implemented this filter by removing those dataset rows with <code>path</code> ending in one the following extensions:
+            <code>.c</code>, <code>.cc</code>, <code>.cpp</code>, and <code>.h</code>.
+          </div>
+
+          <p>The table below includes the <a href="https://en.wikipedia.org/wiki/Five-number_summary" target="_blank">five-number
+              summary</a> of the four continuous-valued metrics in our dataset. The additional column is the number of source
+            code files for which the metric has a <code>NA</code> as the value.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-8">
+        <div>
+          <table class="table table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="text-center">Metric</th>
+                <th scope="col" class="text-center">Minimum</th>
+                <th scope="col" class="text-center">1<sup>st</sup> Quartile</th>
+                <th scope="col" class="text-center">Median</th>
+                <th scope="col" class="text-center">Mean</th>
+                <th scope="col" class="text-center">3<sup>rd</sup> Quartile</th>
+                <th scope="col" class="text-center">Maximum</th>
+                <th scope="col" class="text-center"># NA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Churn</td>
+                <td class="text-right">0.00</td>
+                <td class="text-right">107.00</td>
+                <td class="text-right">252.00</td>
+                <td class="text-right">857.90</td>
+                <td class="text-right">683.00</td>
+                <td class="text-right">2612044.00</td>
+                <td class="text-right">2</td>
+              </tr>
+              <tr>
+                <td>Collaboration</td>
+                <td class="text-right">1.00</td>
+                <td class="text-right">11.01</td>
+                <td class="text-right">49.32</td>
+                <td class="text-right">1142.10</td>
+                <td class="text-right">250.66</td>
+                <td class="text-right">46098.00</td>
+                <td class="text-right">80,572</td>
+              </tr>
+              <tr>
+                <td>Contribution</td>
+                <td class="text-right">0.00</td>
+                <td class="text-right">0.00</td>
+                <td class="text-right">3467.00</td>
+                <td class="text-right">93958.00</td>
+                <td class="text-right">31725.00</td>
+                <td class="text-right">488605563.00</td>
+                <td class="text-right">8</td>
+              </tr>
+              <tr>
+                <td>Lines of Code</td>
+                <td class="text-right">0.00</td>
+                <td class="text-right">29.00</td>
+                <td class="text-right">75.00</td>
+                <td class="text-right">260.40</td>
+                <td class="text-right">223.00</td>
+                <td class="text-right">127575.00</td>
+                <td class="text-right">260,078</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>The five-number summary shown in the table above provides some insight into the distribution of the metrics.
+            However, a visualization would provide a clearer perspective on the distribution of the metrics. Shown in Figures 1.1
+            through 1.4 is the density plot of churn, collaboration centrality, contribution centrality, and lines of code,
+            respectively, in each of the four open-source projects.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/distribution.churn.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 100%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1.1</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/distribution.collaboration.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 100%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1.2</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/distribution.contribution.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 100%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1.3</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/distribution.loc.svg" class="figure-img rounded mx-auto d-block" alt=""
+            style="width: 100%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1.4</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <p>The density plots of the metrics seem to indicate that the metrics are not normally distributed. The churn and lines
+          of code metrics appear to follow a lognormal distribution (note that the x-axis in the density plot is log-scaled).</p>
+
+        <p>While the visual inspection may provide some insight into the distribution of the metric, it is not an objective
+          assessment instrument. We used the Anderson-Darling test to assess if the metrics were normally distribution. See the
+          documentation for <a href="https://www.rdocumentation.org/packages/nortest/versions/1.0-4/topics/ad.test" target="_blank"><code>ad.test</code></a>
+          for more information about the implementation of the test in <code>R</code>.</p>
+
+        <p>The outcome from the Anderson-Darling test indicated that none of the metrics is normally distributed in any of the
+          four open-source projects. The test for normality is essential in identifying the appropriate tests when analyzing
+          the data as some tests (the t-test, for instance) assume the data is normally distributed.</p>
+      </div>
+    </div>
+
+    <!-- Metrics > Generalizability -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h2 id="generalizability">Generalizability</h2>
+
+          <p>The approach to assessing the generalizability of metrics involves comparing the distribution of the metrics across
+            projects within the same domain and projects across domains. In our dataset, we have metrics collected from four
+            projects spanning two domains. We consider a metric be generalizable (empirically speaking) if the metric is similarly
+            distributed across all projects within and across domains.</p>
+
+          <p>We rely on qualitative and quantitative approaches to assess if the distribution of a metric is similar across
+            projects. In the qualitative analysis, we will use comparative box and violin plots to visually assess if the
+            distributions are similar. In the quantitative analysis, we will supplement the insight gained from the qualitative
+            analysis by using statistical tests to compare the distribution of metrics across projects.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics > Generalizability > Qualitative -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Qualitative</h3>
+
+          <p>Shown in Figures 2.1 through 2.4 are the comparative box and violin plots comparing the distribution of churn,
+            collaboration centrality, contribution centrality, and lines of code, respectively, in each of the four open-source
+            projects.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/comparison.churn.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 75%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2.1</figcaption>
+        </figure>
+      </div>
+      <div class="col-lg-6">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/comparison.collaboration.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 75%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2.2</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/comparison.contribution.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 75%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2.3</figcaption>
+        </figure>
+      </div>
+      <div class="col-lg-6">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/comparison.loc.svg" class="figure-img rounded mx-auto d-block" alt=""
+            style="width: 75%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2.4</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+            <p>The comparative box and violin plots seem to indicate that the distribution of churn and lines of code is similar
+              across projects both within and across projects. The distribution of collaboration centrality seem to be similar
+              between projects in the browser domain but seem considerably different between projects in the operating system
+              domain. The distribution of contribution centrality seems similar across projects within the domain but dissimilar
+              across projects across domains.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics > Generalizability > Quantitative -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Quantitative</h3>
+
+          <p>The qualitative assessment provides preliminary insight about the generalizability of the metrics across projects.
+            We have to supplement the qualitative assessment with quantitative evidence to make objective assessment of the
+            generalizability of the metrics.</p>
+
+          <p>As mentioned earlier, the metrics <i>do not</i> follow a normal distribution and, as a result, we have to use
+            non-parametric tests to compare the distributions of metrics across projects. In our study, we used the
+            Mann-Whitney-Wilcoxon test to assess if the distribution of the metric from two projects is from the same population
+            distribution. If the test outcome from Mann-Whitney-Wilcoxon test is <i>not</i> statistically significant, the metric
+            may be regarded as similarly distributed across the two projects being compared. However, relying on statistical
+            significance alone may be insufficient as p-value tends to be affected by sample size <a href="#ellis2003practical">[4]</a>.
+            We supplemented the statistical significance of the Mann-Whitney-Wilcoxon test with practical significance expressed
+            using Cliff's δ which is a non-parametric measure of effect size.</p>
+
+          <p>The table below includes outcomes from the Mann-Whitney-Wilcoxon test and Cliff's δ between metrics taken from two
+            projects at a time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-10">
+        <div>
+          <table class="table table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" class="text-center">Metric</th>
+              <th scope="col" class="text-center">Project<sub>x</sub></th>
+              <th scope="col" class="text-center">Domain<sub>x</sub></th>
+              <th scope="col" class="text-center">Project<sub>y</sub></th>
+              <th scope="col" class="text-center">Domain<sub>y</sub></th>
+              <th scope="col" class="text-center">p-value</th>
+              <th scope="col" class="text-center">Significant</th>
+              <th scope="col" class="text-center">Cliff's δ</th>
+              <th scope="col" class="text-center">Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="6" style="font-weight: bold;" class="align-middle">Churn</td>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1925</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr>
+              <td>Linux</td>
+              <td>OS</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0971</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0838</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0238</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0886</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1927</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr class="bg-light">
+              <td rowspan="6" style="font-weight: bold;" class="align-middle">Collaboration</td>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1368</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Linux</td>
+              <td>OS</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.9911</td>
+              <td class="text-danger">Large</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.8376</td>
+              <td class="text-danger">Large</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.8509</td>
+              <td class="text-danger">Large</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.8122</td>
+              <td class="text-danger">Large</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.9378</td>
+              <td class="text-danger">Large</td>
+            </tr>
+            <tr>
+              <td rowspan="6" style="font-weight: bold;" class="align-middle">Contribution</td>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1642</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr>
+              <td>Linux</td>
+              <td>OS</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.3319</td>
+              <td class="text-danger">Medium</td>
+            </tr>
+            <tr>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0523</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.2829</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.2185</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1358</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr class="bg-light">
+              <td rowspan="6" style="font-weight: bold;" class="align-middle">Lines of Code</td>
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1723</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Linux</td>
+              <td>OS</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1777</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.2903</td>
+              <td class="text-success">Small</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Chromium</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0691</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>Linux</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.1305</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+            <tr class="bg-light">
+              <td>Firefox</td>
+              <td>Browser</td>
+              <td>OpenBSD</td>
+              <td>OS</td>
+              <td class="text-center">&lt; 2E-16</td>
+              <td class="text-center text-danger">Yes</td>
+              <td class="text-right">0.0730</td>
+              <td class="text-success">Negligible</td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>The outcome from the quantitative assessment provides evidence for our intuition from the qualitative assessment. As
+            suspected, the outcome from Mann-Whitney-Wilcoxon test is statistically significant in all but one case indicating
+            that the distribution of the metric is dissimilar across the two projects being compared. However, the practical
+            significance provides the extent to which the distributions are dissimilar. As mentioned in the qualitative
+            assessment, churn and lines of code are similarly distributed across all project both within and across domains with
+            a small-to-negligible dissimilarity in the distributions. Unsurprisingly, the distribution of collaboration
+            centrality is dissimilar in all but one case. The distribution of contribution centrality, on the other hand, is
+            similar across all projects except within the operating system domain.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics > Generalizability > Summary -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Summary</h3>
+
+          <p>The qualitative and quantitative assessment provide sufficient evidence to conclude that churn, lines of code, and
+            contribution are generalizable across projects. The effect of this assessment is that a predictive model that uses
+            these metrics as features can be trained with metric values from one project and applied to predict a phenomenon
+            (probability of a source code file having a security vulnerability, for instance) in another project.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h1 id="usability">Usability</h1>
+
+          <p>The usability of the metrics considered in this study has predominantly been assessed by their effectiveness as
+            features in a predictive model. Model performance evaluation metrics such as precision, recall, and f-measure have
+            been the measure of effectiveness of features. The interpretability and actionability of the metrics have largely
+            been ignored.</p>
+
+          <p>In this section, we present an approach to interpret the metrics in the context of a Logistic Regression model
+            trained with metric values collected from one of the four open-source projects considered in our study.</p>
+
+          <p>The dependent variable is the boolean-valued metric described earlier: offender. We restrict our usability analysis
+            to single project (Chromium) because the process to collect the offender metric is quite involved and a considerable
+            portion of the approach to collect the metric is manual. We chose the Chromium project because we had the offender
+            information from a previous research project.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Offender -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h2 id="offender">Offender</h2>
+
+          <p>Shown in the table below is a distribution of the offender metric in the Chromium dataset.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-2">
+        <div>
+          <table class="table table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="text-center">Offender</th>
+                <th scope="col" class="text-center"># Files</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: #ed7d31;">Yes</td>
+                <td class="text-right">1,854</td>
+              </tr>
+              <tr>
+                <td style="color: #70ad47">No</td>
+                <td class="text-right">198,632</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>The distribution shown in the table above highlights a key challenge in building a model to predict vulnerabilities
+            in software: class imbalance. A mere 0.9247% of all source code files in Chromium have been fixed for a vulnerability
+            in the past (i.e. offender = Yes). In training a model, the imbalance could bias the model toward the negative class
+            (i.e. offender = No) severely impacting the effectiveness of the model.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Offender > Discriminatory Power -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Discriminatory Power</h3>
+
+          <p>In an approach similar to that used to assess the generalizability of the metrics earlier, we used qualitative and
+            quantitative assessments to assess the discriminatory power of the metrics to separate source code files with
+            different values of the offender metric.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Offender > Discriminatory Power > Qualitative -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h4>Qualitative</h4>
+
+          <p>Shown in Figure 3 is a comparative box plot of the four continuous-valued metrics separated by the value of the offender metric.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/discriminatory.metrics.svg" class="figure-img rounded mx-auto d-block" alt="" style="width: 85%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 3</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>As seen in the comparative box plot, churn, contribution centrality, and lines of code seem to be the best
+            discriminators of source code files with differing values for the offender metric.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Offender > Discriminatory Power > Quantitative -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h4>Quantitative</h4>
+
+          <p>We supplemented the insight gained from the qualitative analysis with evidence from quantitative analysis using
+            Mann-Whitney-Wilcoxon test and Cliff's δ. Earlier, we used Mann-Whitney-Wilcoxon test and Cliff's δ to assess if the
+            distribution of the metric was similar but here we use these to assess if the distribution of the metric is different
+            for source code files with offender = Yes and offender = No. The discriminatory power of a metric is high if the
+            distribution of the metric is statistically significantly different between the two groups of source code files and
+            the magnitude of the difference in distribution is medium to large.</p>
+
+          <p>The table below includes outcomes from the Mann-Whitney-Wilcoxon test and Cliff's δ for each of the four
+            continuous-valued metrics when.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-6">
+        <div>
+          <table class="table table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="text-center">Metric</th>
+                <th scope="col" class="text-center">p-value</th>
+                <th scope="col" class="text-center">Significant</th>
+                <th scope="col" class="text-center">Cliff's δ</th>
+                <th scope="col" class="text-center">Effect</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: bold;">Churn</td>
+                <td class="text-center">&lt; 2E-16</td>
+                <td class="text-center text-success">Yes</td>
+                <td class="text-right">0.6700</td>
+                <td class="text-success">Large</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;">Collaboration</td>
+                <td class="text-center">&lt; 2E-16</td>
+                <td class="text-center text-success">Yes</td>
+                <td class="text-right">0.4700</td>
+                <td class="text-success">Medium</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;">Contribution</td>
+                <td class="text-center">&lt; 2E-16</td>
+                <td class="text-center text-success">Yes</td>
+                <td class="text-right">0.7012</td>
+                <td class="text-success">Large</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;">Lines of Code</td>
+                <td class="text-center">&lt; 2E-16</td>
+                <td class="text-center text-success">Yes</td>
+                <td class="text-right">0.5660</td>
+                <td class="text-success">Large</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>The outcome from the quantitative assessment provides evidence for our intuition from the qualitative assessment.
+            All four metrics are good discriminators of offender files with churn, contribution centrality, and lines of code
+            metrics exhibiting the highest discriminatory power.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Correlation -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h2 id="correlation">Correlation</h2>
+
+          <p>We know that all four continuous-valued metrics are good discriminators of offender files with churn, contribution
+            centrality, and lines of code being the most effective. However, before we can go ahead and build a predictive model
+            with these metrics are features, we must first assess the correlation between the variables themselves. Since we know
+            that the metrics <i>do not</i> follow a normal distribution, we use the Spearman's Rank Correlation Coefficient
+            (Spearman's ρ) to assess the correlation between the metrics.</p>
+
+          <p>Shown in Figure 4 is the value of Spearman's ρ between the four continuous-valued metrics in the Chromium project.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <figure class="figure border rounded">
+          <img src="/assets/images/plots/correlation.chromium.svg" class="figure-img rounded mx-auto d-block" alt=""
+            style="width: 80%;" />
+          <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 4</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>Churn and lines of code and collaboration and contribution are strongly correlated. Churn and contribution is
+            moderately correlated as well. If the correlation is not taken into account, its effects would manifest with features
+            in the model explaining the same underlying aspect of the data, contributing redundancy to the model.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Model Building -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h2 id="model-building">Model Building</h2>
+
+          <p>We now describe the approach used to build a predictive model using the four continuous-valued metrics (or a subset
+            of them) as features.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Model Building > Experimental Setup -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Experimental Setup</h3>
+
+          <p>The setup experimental used in the model building experiment are as follows:</p>
+
+          <ul>
+            <li>All experiments were performed in <code>R</code> using the <a href="https://topepo.github.io/caret/" target="_blank"><code>caret</code></a>
+              package.</li>
+            <li>Since the scale of the metrics are vastly different from one another, the metric values were scaled and centered
+              using the <a href="https://topepo.github.io/caret/pre-processing.html#centering-and-scaling" target="_blank"><code>preProcess</code></a>
+              function.</li>
+            <li>The dataset was split into training and testing datasets with a 80%-20% split, respectively, with stratified
+              sampling used to ensure the class imbalance is replicated in both the training and testing datasets.</li>
+            <li>We used 10 repetitions of 10-fold cross validation in relevant steps of the experiment.</li>
+            <li>We used Synthetic Minority Over-sampling TEchnique (SMOTE) <a href="#chawla2002smote"></a> to overcome the class
+              imbalance problem.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Model Building > Feature Selection -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Feature Selection</h3>
+
+          <p>As mentioned earlier, some of the metrics are correlated with one another and thus must be removed. We chose to
+            leverage <a href="https://topepo.github.io/caret/recursive-feature-elimination.html" target="_blank">recursive
+              feature elimination</a> to select features that are determined to be relevant based on the data.</p>
+
+          <p>The recursive feature elimination identified churn, collaboration centrality, and contribution centrality as the
+            subset of metrics that are effective at predicting offender source code files. We do not consider the lines of code
+            metric in the remainder of this exercise.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Model Building > Training and Testing -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Training and Testing</h3>
+
+          <p>We chose to train and test a logistic regression model as it lends itself to interpretation of the metrics'
+            contribution to the odds of a source code file having been an offender. We built two versions of the same model with
+            and without the use of SMOTE to mitigate the limitation of the class imbalance.</p>
+
+          <p>Shown in the table below are the precision, recall, and F<sub>1</sub> obtained when training and testing the model.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-6">
+        <div>
+          <table class="table table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="text-center">Variant</th>
+                <th scope="col" class="text-center">Phase</th>
+                <th scope="col" class="text-center">Precision</th>
+                <th scope="col" class="text-center">Recall</th>
+                <th scope="col" class="text-center">F<sub>1</sub></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" class="align-middle"><code>glm</code></td>
+                <td>Training</td>
+                <td class="text-right">50.7627%</td>
+                <td class="text-right">5.9164%</td>
+                <td class="text-right">10.6144%</td>
+              </tr>
+              <tr>
+                <td>Testing</td>
+                <td class="text-center">NA</td>
+                <td class="text-right">0.00%</td>
+                <td class="text-center">NA</td>
+              </tr>
+              <tr>
+                <td rowspan="2" class="align-middle"><code>glm</code> with SMOTE</td>
+                <td>Training</td>
+                <td class="text-right">10.7798%</td>
+                <td class="text-right">49.4850%</td>
+                <td class="text-right">17.6874%</td>
+              </tr>
+              <tr>
+                <td>Testing</td>
+                <td class="text-center">NA</td>
+                <td class="text-right">0.00%</td>
+                <td class="text-center">NA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>The precision, recall, and F<sub>1</sub> from the model could not be obtained during the testing phase because the
+            model predicted all the offender source code files as not an offender (i.e. false negative). In absoluteness, the
+            performance of the model is nowhere close to being viable for practical application, however, interpreting the
+            contribution of the features to the odds of a source code file having been an offender may be useful to communicate
+            to developers the factors that have led to security vulnerabilities in the past. The increased awareness may help
+            developers inculcate an attacker mindset and assist in their pursuit of engineering secure software.</p>
+
+          <p>The use of SMOTE to mitigate the class imbalance helped improve the performance with an increase in F<sub>1</sub> by
+            66.64%. We use the <code>glm</code> with SMOTE model in the remainder of this exercise.</p>
+
+          <p>The summary of the <code>glm</code> with SMOTE model as output by the <code>summary</code> function in <code>R</code>
+            is shown below.</p>
+
+          <pre>
+            <code>
+> summary(model$finalModel)
+
+Call:
+NULL
+
+Deviance Residuals:
+    Min       1Q   Median       3Q      Max
+-6.6297  -0.7940  -0.7595   0.9989   1.6730
+
+Coefficients:
+                Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)   -1.117e+00  3.875e-02 -28.836   &lt;2e-16 ***
+churn          2.741e-04  2.345e-05  11.691   &lt;2e-16 ***
+collaboration -6.090e-06  8.277e-05  -0.074    0.941
+contribution   6.923e-07  4.629e-08  14.955   &lt;2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 8384.7  on 6138  degrees of freedom
+Residual deviance: 6606.2  on 6135  degrees of freedom
+AIC: 6614.2
+
+Number of Fisher Scoring iterations: 8
+</code>
+          </pre>
+
+          <p>From the summary, we can observe that the collaboration metric is not statistically significant despite being
+            regarded as relevant by recursive feature elimination. We ignore the collaboration metric in the remainder of this
+            discussion. Shown in the table below is the contribution of a metric to the odds of a file having been an offender,
+            expressed as a percentage.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-8">
+        <div>
+          <table class="table table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="text-center">Metric</th>
+                <th scope="col" class="text-center">Coefficient</th>
+                <th scope="col" class="text-center">Contribution</th>
+                <th scope="col" class="text-center">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="align-middle" style="font-weight: bold;">Churn</td>
+                <td class="text-right align-middle">2.741e-04</td>
+                <td class="text-right align-middle">2.7414%</td>
+                <td>Unit increase in churn <span class="text-danger">increases</span> the odds of a file having been an offender by 2.74%.</td>
+              </tr>
+              <tr>
+                <td class="align-middle" style="font-weight: bold;">Contribution</td>
+                <td class="text-right align-middle">6.923e-07</td>
+                <td class="text-right align-middle">0.0069%</td>
+                <td>Unit increase in contribution <span class="text-danger">increases</span> the odds of a file having been an offender by 0.01%.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usability > Model Building > Path Forward -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h3>Path Forward</h3>
+
+          <p>The performance of the predictive model does not inspire confidence. However, we propose to not use the metrics as
+            mere features in a predictive model black-box but rather as agents of empirically-derived feedback. For instance, we
+            could use the <code>glm</code> with SMOTE model described above to provide developers with natural language feedback
+            about the potential impact their change to a source code file could have the odds of a file having an undiscovered
+            security vulnerability.</p>
+
+          <h4>Scenario</h4>
+
+          <p>Assume that a developer contributed a change to a file by adding 176 lines of code and deleting 34 lines of code.
+            The (total) churn in this change is 176 + 34 = 210 lines of code. If we used the interpretation of the <code>glm</code>
+            with SMOTE model from earlier, we could provide the developer with feedback in natural language that would resemble
+            the one shown below.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-10">
+        <div>
+          <div class="alert alert-warning" role="alert">
+            <p>The change to <code>foo.c</code> being submitted churned 210 lines of code. Historically, files with high churn are
+            susceptible to security vulnerabilities [1]. Empirically, the change increases the odds of <code>foo.c</code> needing a
+            fix for a security vulnerability by 576%.</p>
+
+            <p>Have you considered reviewing the file, in general, and the change, in particular, for security flaws?</p>
+
+            <span class="small">[1] Zimmermann, Thomas, Nachiappan Nagappan, and Laurie Williams. "Searching for a Needle in a
+              Haystack: Predicting Security Vulnerabilities for Windows Vista" Software Testing, Verification and Validation
+              (ICST), 2010 Third International Conference on. IEEE, 2010.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <p>We want to provide this feedback not only to the developer but in a context where other developers can collaborate
+            and work toward uncovering a security vulnerability. An example of such a context is the modern code review where
+            developers' changes are reviewed by peers to identify bugs and ensure quality. If not anything, the feedback can be
+            the catalyst for the developers involved in the review to have a conversation about security collectively raising the
+            security awareness of the group.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h1 id="conclusion">Conclusion</h1>
+
+          <p>In this preliminary exploratory data analysis, the goal was to explore the generalizability and usability of metrics
+            that are known to be associated with security vulnerabilities in source code files. We identified three of the four
+            continuous-valued metrics considered in our study to be generalizable across multiple projects. In assessing the
+            usability of the metrics, we proposed an approach to interpret a predictive model to provide natural language
+            feedback to developers explaining security implications of their change to the source code.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Future Work -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h1 id="future-work">Future Work</h1>
+
+          <p>The usability of metrics assessed in this preliminary exploratory analysis of the data was restricted to the interpretability of the metrics. The actionability of the metrics is another important dimension to usability. The actionability of the metrics can only be assessed by getting feedback from actual developers. The approach to elicit developer feedback would involve providing the natural language feedback that the interpretation of the metrics help generate to actual developers in the context of a code review and having them answer a questionnaire to provide their comments on the feedback. We are calling this approach <i>developer-in-the-loop</i>.</p>
+
+          <p>The challenges in the developer-in-the-loop approach to assessing metric actionability is to determine a threshold which, when crossed, determines if the developers should be provided with feedback. We should also continually tune this threshold to ensure the developers are not shown feedback that they perceive is not actionable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h1 id="references">References</h1>
+
+          <p id="zimmermann2010searching">[1] Zimmermann, Thomas, Nachiappan Nagappan, and Laurie Williams. "Searching for a
+            needle in a haystack: Predicting security vulnerabilities for windows vista." Software Testing, Verification and
+            Validation (ICST), 2010 Third International Conference on. IEEE, 2010.</p>
+          <p id="meneely2009secure">[2] Meneely, Andrew, and Laurie Williams. "Secure open source collaboration: an empirical
+            study of linus' law." Proceedings
+            of the 16th ACM conference on Computer and communications security. ACM, 2009.</p>
+          <p id="meneely2013patch">[3] Meneely, Andrew, et al. "When a patch goes bad: Exploring the properties of
+            vulnerability-contributing commits."
+            Empirical Software Engineering and Measurement, 2013 ACM/IEEE International Symposium on. IEEE, 2013.</p>
+          <p id="ellis2003practical">[4] Ellis, S. M., and H. S. Steyn. "Practical significance (effect sizes) versus or in
+            combination with statistical significance (p-values): research note." Management Dynamics: Journal of the Southern
+            African Institute for Management Scientists 12.4 (2003): 51-53.</p>
+          <p id="chawla2002smote">[5] Chawla, Nitesh V., et al. "SMOTE: synthetic minority over-sampling technique." Journal of
+            artificial intelligence research 16 (2002): 321-357.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
