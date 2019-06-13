@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <title>Samaritan | Metrics</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" type="text/css" />
+    <link rel="stylesheet" href="/assets/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">
+        <img src="/assets/images/logo.svg" height="30" alt="" />
+      </a>
+    </nav>
+
+    <div class="container">
+<div class="row">
+  <!-- Metrics -->
+  <div class="col-lg-12">
+    <h1 id="metrics">Metrics</h1>
+
+    <p>We have the following vulnerability discovery metrics implemented in the Samaritan project. If you want
+      to know more about a specific metric, please click the name of the metric.</p>
+  </div>
+</div>
+
+<dl class="row">
+  
+  <dt class="col-lg-3"><a href="/metrics/churn">Churn</a></dt>
+  <dd class="col-lg-9">
+    <p>The total number of lines added, modified, and deleted throughout the history of a file.
+    
+    
+    <a href="#Zimmermann2010Searching">[3]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/collaboration">Collaboration Centrality</a></dt>
+  <dd class="col-lg-9">
+    <p>The maximum of the edge centrality of edges representing files in a collaboration network. A collaboration network is an unweighted and undirected graph in which nodes represent developers and edges represent files. An edge exists between two developers if they both changed at least one file.
+    
+    
+    <a href="#Meneely2009Secure">[1]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/complexity">Cyclomatic Complexity</a></dt>
+  <dd class="col-lg-9">
+    <p>The number of unique decision paths through a function.
+    
+    
+    <a href="#Younis2016Fear">[2]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/contribution">Contribution Centrality</a></dt>
+  <dd class="col-lg-9">
+    <p>The node betweenness centrality of nodes representing files in a contribution network. A contribution network is a weighted and undirected bipartite graph with two sets of nodes: files and developers. An edge exists between a developer node and a file node if the developer made a change (commit) to the file. The weight of the edge is the number of changes a single developer made to a particular file.
+    
+    
+    <a href="#Meneely2009Secure">[1]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/nesting">Nesting</a></dt>
+  <dd class="col-lg-9">
+    <p>The maximum nesting level of control structures in a function.
+    
+    
+    <a href="#Younis2016Fear">[2]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/ninput">Number of Inputs</a></dt>
+  <dd class="col-lg-9">
+    <p>The number of inputs that a function uses.
+    
+    
+    <a href="#Younis2016Fear">[2]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/noutput">Number of Outputs</a></dt>
+  <dd class="col-lg-9">
+    <p>The number of functions that a function calls.
+    
+    
+    <a href="#Younis2016Fear">[2]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/npath">Number of Paths</a></dt>
+  <dd class="col-lg-9">
+    <p>The number of unique decision paths through a function.
+    
+    
+    <a href="#Younis2016Fear">[2]</a>
+    
+    </p>
+  </dd>
+  
+  <dt class="col-lg-3"><a href="/metrics/sloc">Source Lines of Code</a></dt>
+  <dd class="col-lg-9">
+    <p>The number of source lines of code in a file.
+    
+    
+    <a href="#Zimmermann2010Searching">[3]</a>
+    
+    </p>
+  </dd>
+  
+</dl>
+
+
+<!-- References -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="references">Reference(s)</h1>
+      
+      <p id="Meneely2009Secure">[1] Andrew Meneely and Laurie Williams. 2009. Secure Open Source Collaboration: An Empirical Study of Linus’ Law.
+        In Proceedings of the 16th ACM Conference on Computer and Communications Security (CCS '09). New York, NY, USA, 453–462. <a href="https://doi.org/10.1145/1653662.1653717" target="_blank">https://doi.org/10.1145/1653662.1653717</a>
+      
+      <p id="Younis2016Fear">[2] Awad Younis, Yashwant Malaiya, Charles Anderson, and Indrajit Ray. 2016. To Fear or Not to Fear That is the Question: Code Characteristics of a Vulnerable Function with an Existing Exploit.
+        In Proceedings of the 6th ACM Conference on Data and Application Security and Privacy (CODASPY '16). New York, NY, USA, 97–104. <a href="https://doi.org/10.1145/2857705.2857750" target="_blank">https://doi.org/10.1145/2857705.2857750</a>
+      
+      <p id="Zimmermann2010Searching">[3] Thomas Zimmermann, Nachiappan Nagappan, and Laurie Williams. 2010. Searching for a Needle in a Haystack: Predicting Security Vulnerabilities for Windows Vista.
+        In Proceedings of the 3rd International Conference on Software Testing, Verification and Validation (ICST '10). 421-428. <a href="https://doi.org/10.1109/ICST.2010.32" target="_blank">https://doi.org/10.1109/ICST.2010.32</a>
+      
+    </div>
+  </div>
+</div><!-- References -->
+
+    </div>
+  </body>
+</html>

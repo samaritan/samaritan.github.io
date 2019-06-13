@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <title>Samaritan | Metrics | Source Lines of Code</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" type="text/css" />
+    <link rel="stylesheet" href="/assets/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">
+        <img src="/assets/images/logo.svg" height="30" alt="" />
+      </a>
+    </nav>
+
+    <div class="container">
+<!-- Metric -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1 id="definition">Source Lines of Code</h1>
+
+    <p>The number of source lines of code in a file.</p>
+
+    <h2 id="interpretation">Interpretation</h1>
+
+    <p>The attribute that source lines of code is expected to quantify is <i>size</i>. A file that is large is likely to have a high value for the source lines of code metric.</p>
+  </div>
+</div>
+
+<!-- Evidence -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="evidence">Evidence</h1>
+
+      <p>Source Lines of Code has been empirically-validated to be associated with historical vulnerabilities in
+        software in the following peer-reviewed research studies:</p>
+
+      <ol>
+        
+        
+        <li>Searching for a Needle in a Haystack: Predicting Security Vulnerabilities for Windows Vista <a href="#Zimmermann2010Searching">[2]</a></li>
+        
+      </ol>
+
+      <p class="alert alert-warning">The empirical evidence overwhelming supports the notion that a source code file with high source lines of code is more likely to contain a security vulnerability.</p>
+    </div>
+  </div>
+</div><!-- Evidence -->
+
+<!-- Implication -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="implication">Implications</h1>
+
+      <p>The security implication(s) of a file having high source lines of code could be one or more of the following:</p>
+
+      <ul>
+      
+        <li>Size may make the file unwieldy to review increasing the potential for latent vulnerabilities.</li>
+      
+        <li>Size may also make the file difficult to comprehend and subsequently change making likely for developers to introduce vulnerabilities.</li>
+      
+      </ul>
+    </div>
+  </div>
+</div><!-- Implication -->
+
+<!-- Mitigations -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="mitigations">Mitigations</h1>
+
+      <p>The theoretical mitigation to lowering the source lines of code of a file is to have source code files with no code in them at all. However, the theoretical mitigation is not practical, at best, and meaningless, at worst. Therefore, the risk of latent vulnerabilities in a file with high source lines of code could be mitigated using one or more of the following suggestions:</p>
+
+      <ul>
+      
+        <li>Modularize the file to distribute the source code contained within it across multiple smaller files.</li>
+      
+      </ul>
+    </div>
+  </div>
+</div><!-- Mitigations -->
+
+<!-- Implementation -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="implementation">Implementation</h1>
+
+      <p>In our implementation of the metric, we use <a href="//scitools.com/" target="_blank">SciTools Understand™</a> to collect the source lines of code metric from source code files.</p>
+
+      <p>The source code of the implementation of the metric will be made available on GitHub. If you need to collect
+        the metric from your project, the implementation will also be made available as a container image on Docker
+        Hub.</p>
+    </div>
+  </div>
+</div><!-- Implementation -->
+
+<!-- Examples -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="examples">Example(s)</h1>
+
+      <p>In this section, we present examples of the  metric collected from popular open-source
+        software projects.</p>
+
+      <h2>Chromium</h2>
+
+      <p>In this subsection, we present examples of the  metric collected from the <a
+        href="https://www.chromium.org/Home" target="_blank">Chromium</a>, the open-source project behind the
+        <a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a> web browser.</p>
+
+      <p>The metric examples presented here were collected at <a
+        href="https://chromium.googlesource.com/chromium/src.git/+/6b9bf768231fa5f7ff3712b9bed23e57c52440eb"><code>
+        6b9bf768231f</code></a> commit to the <code>master</code> branch of the Chromium source code repository.</p>
+
+      <h3>Summary</h3>
+
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4 text-center">
+          <figure class="figure border rounded">
+            <img src="/assets/images/metrics/sloc/chromium/distribution.svg"
+              class="figure-img rounded mx-auto d-block" alt="Chromium Source Lines of Code Distribution"
+              style="width: 100%;" />
+            <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1</figcaption>
+          </figure>
+        </div>
+        <div class="col-lg-4 text-center">
+          <figure class="figure border rounded">
+            <img src="/assets/images/metrics/sloc/chromium/discriminatory.svg"
+              class="figure-img rounded mx-auto d-block" alt="Chromium Source Lines of Code Discriminatory"
+              style="width: 100%;" />
+            <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2</figcaption>
+          </figure>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+
+      <p>Shown in Figure 1 is the distribution of the  metric collected from source code files in
+        the Chromium project. Shown in Figure 2 is the comparison of the distribution of the  metric
+        collected from source code files in the Chromium project that were not historically vulnerable and those
+        that were.</p>
+
+      <h3>Thresholds</h3>
+
+      <p>The thresholds of the  metric in the Chromium project determined using the approach
+        prescribed by Alves <i>et al.</i> <a href="#Alves2010Deriving">
+        [1]</a> is shown in the table below.</p>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <table class="table table-bordered text-center">
+            <tr>
+              <th class="text-left">
+                Metric Range
+              </th>
+              <th>
+                value &lt; 873
+              </th>
+              <th>
+                873 ≤ value &lt; 1,461
+              </th>
+              <th>
+                1,461 ≤ value &lt; 3,214
+              </th>
+              <th>
+                3,214 ≤ value
+              </th>
+            </tr>
+            <tr>
+              <th class="text-left">Risk Level</th>
+              <td class="table-secondary">Low</td>
+              <td class="table-info">Medium</td>
+              <td class="table-warning">High</td>
+              <td class="table-danger">Critical</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h3>Risky Files</h3>
+
+      <p>The thresholds are used to classify source code files into appropriate risk levels. Shown below are the
+        top and bottom three source code files from the Chromium project in each of the three non-trivial risk
+        levels.</p>
+
+      <div class="accordion" id="riskyFiles">
+        
+        <div class="card">
+          <div class="card-header" id="mediumRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#mediumRiskBody" aria-expanded="true"
+                aria-controls="mediumRiskBody">
+                Medium Risk
+              </button>
+            </h2>
+          </div>
+          <div id="mediumRiskBody" class="collapse show"
+            aria-labelledby="mediumRiskHeader" data-parent="#riskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Source Lines of Code</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>components/sync/protocol/proto_visitors.h</code></td>
+                    <td class="text-right">873</td>
+                    <td class="text-right">70.0231</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>chrome/browser/chromeos/file_manager/path_util_unittest.cc</code></td>
+                    <td class="text-right">873</td>
+                    <td class="text-right">70.0231</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/blink/renderer/platform/network/network_state_notifier_test.cc</code></td>
+                    <td class="text-right">873</td>
+                    <td class="text-right">70.0231</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>native_client_sdk/src/libraries/nacl_io/kernel_proxy.cc</code></td>
+                    <td class="text-right">1,459</td>
+                    <td class="text-right">79.9768</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>content/browser/accessibility/dump_accessibility_tree_browsertest.cc</code></td>
+                    <td class="text-right">1,459</td>
+                    <td class="text-right">79.9768</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gpu/command_buffer/service/gles2_cmd_validation_implementation_autogen.h</code></td>
+                    <td class="text-right">1,460</td>
+                    <td class="text-right">79.9908</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header" id="highRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#highRiskBody" aria-expanded="true"
+                aria-controls="highRiskBody">
+                High Risk
+              </button>
+            </h2>
+          </div>
+          <div id="highRiskBody" class="collapse"
+            aria-labelledby="highRiskHeader" data-parent="#riskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Source Lines of Code</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>third_party/protobuf/src/google/protobuf/extension_set.cc</code></td>
+                    <td class="text-right">1,461</td>
+                    <td class="text-right">80.0188</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>components/sync/engine_impl/sync_scheduler_impl_unittest.cc</code></td>
+                    <td class="text-right">1,461</td>
+                    <td class="text-right">80.0188</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>chrome/browser/content_settings/host_content_settings_map_unittest.cc</code></td>
+                    <td class="text-right">1,462</td>
+                    <td class="text-right">80.0329</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>ash/display/display_manager_unittest.cc</code></td>
+                    <td class="text-right">3,157</td>
+                    <td class="text-right">89.9191</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>ash/wm/overview/overview_session_unittest.cc</code></td>
+                    <td class="text-right">3,163</td>
+                    <td class="text-right">89.9494</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>cc/scheduler/scheduler_unittest.cc</code></td>
+                    <td class="text-right">3,172</td>
+                    <td class="text-right">89.9799</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header" id="criticalRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#criticalRiskBody" aria-expanded="true"
+                aria-controls="criticalRiskBody">
+                Critical Risk
+              </button>
+            </h2>
+          </div>
+          <div id="criticalRiskBody" class="collapse"
+            aria-labelledby="criticalRiskHeader" data-parent="#riskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Source Lines of Code</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>gpu/command_buffer/client/gles2_cmd_helper_autogen.h</code></td>
+                    <td class="text-right">3,214</td>
+                    <td class="text-right">90.0107</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>content/browser/frame_host/navigation_controller_impl_unittest.cc</code></td>
+                    <td class="text-right">3,223</td>
+                    <td class="text-right">90.0416</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>content/browser/appcache/appcache_update_job_unittest.cc</code></td>
+                    <td class="text-right">3,255</td>
+                    <td class="text-right">90.0728</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>third_party/libxml/src/testapi.c</code></td>
+                    <td class="text-right">31,132</td>
+                    <td class="text-right">98.9888</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/hunspell/fuzz/hunspell_fuzzer_hunspell_dictionary.h</code></td>
+                    <td class="text-right">37,181</td>
+                    <td class="text-right">99.3454</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/sqlite/amalgamation/sqlite3.c</code></td>
+                    <td class="text-right">68,243</td>
+                    <td class="text-right">100</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div><!-- Examples -->
+
+
+<!-- References -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="references">Reference(s)</h1>
+      
+      <p id="Alves2010Deriving">[1] Tiago L. Alves, Christiaan Ypma, and Joost Visser. 2010. Deriving Metric Thresholds From Benchmark Data.
+        In Proceedings of the 26th International Conference on Software Maintenance (ICSM '10). 1-10. <a href="https://doi.org/10.1109/ICSM.2010.5609747" target="_blank">https://doi.org/10.1109/ICSM.2010.5609747</a>
+      
+      <p id="Zimmermann2010Searching">[2] Thomas Zimmermann, Nachiappan Nagappan, and Laurie Williams. 2010. Searching for a Needle in a Haystack: Predicting Security Vulnerabilities for Windows Vista.
+        In Proceedings of the 3rd International Conference on Software Testing, Verification and Validation (ICST '10). 421-428. <a href="https://doi.org/10.1109/ICST.2010.32" target="_blank">https://doi.org/10.1109/ICST.2010.32</a>
+      
+    </div>
+  </div>
+</div><!-- References -->
+
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>

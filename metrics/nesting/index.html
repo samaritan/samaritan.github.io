@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <title>Samaritan | Metrics | Nesting</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" type="text/css" />
+    <link rel="stylesheet" href="/assets/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">
+        <img src="/assets/images/logo.svg" height="30" alt="" />
+      </a>
+    </nav>
+
+    <div class="container">
+<!-- Metric -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1 id="definition">Nesting</h1>
+
+    <p>The maximum nesting level of control structures in a function.</p>
+
+    <h2 id="interpretation">Interpretation</h1>
+
+    <p>The attribute that nesting is expected to quantify is <i>complexity</i>. A file that is complex to comprehend, change, and/or test is likely to have a high value for the nesting metric.</p>
+  </div>
+</div>
+
+<!-- Evidence -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="evidence">Evidence</h1>
+
+      <p>Nesting has been empirically-validated to be associated with historical vulnerabilities in
+        software in the following peer-reviewed research studies:</p>
+
+      <ol>
+        
+        
+        <li>To Fear or Not to Fear That is the Question: Code Characteristics of a Vulnerable Function with an Existing Exploit <a href="#Younis2016Fear">[2]</a></li>
+        
+      </ol>
+
+      <p class="alert alert-warning">The empirical evidence overwhelming supports the notion that a source code file with high nesting is more likely to contain a security vulnerability.</p>
+    </div>
+  </div>
+</div><!-- Evidence -->
+
+<!-- Implication -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="implication">Implications</h1>
+
+      <p>The security implication(s) of a file having high nesting could be one or more of the following:</p>
+
+      <ul>
+      
+        <li>Complex file is likely to be harder to comprehend, change, and/or test and, as a result, may increase the potential for latent vulnerabilities.</li>
+      
+      </ul>
+    </div>
+  </div>
+</div><!-- Implication -->
+
+<!-- Mitigations -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="mitigations">Mitigations</h1>
+
+      <p>The theoretical mitigation to lowering the nesting of a file is to have source code files only include simpler constructs with limited use of statements that alter control flow. However, the theoretical mitigation is not practical because modern software is inherently complex. Therefore, the risk of latent vulnerabilities in a file with high cyclomatic complexity could be mitigated using one or more of the following suggestions:</p>
+
+      <ul>
+      
+        <li>Refactor functions in the file to simplify the constructs used leveraging common design patterns when appropriate.</li>
+      
+      </ul>
+    </div>
+  </div>
+</div><!-- Mitigations -->
+
+<!-- Implementation -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="implementation">Implementation</h1>
+
+      <p>In our implementation of the metric, we use <a href="//scitools.com/" target="_blank">SciTools Understand™</a> to collect the nesting metric from source code files.</p>
+
+      <p>The source code of the implementation of the metric will be made available on GitHub. If you need to collect
+        the metric from your project, the implementation will also be made available as a container image on Docker
+        Hub.</p>
+    </div>
+  </div>
+</div><!-- Implementation -->
+
+<!-- Examples -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="examples">Example(s)</h1>
+
+      <p>In this section, we present examples of the  metric collected from popular open-source
+        software projects.</p>
+
+      <h2>Chromium</h2>
+
+      <p>In this subsection, we present examples of the  metric collected from the <a
+        href="https://www.chromium.org/Home" target="_blank">Chromium</a>, the open-source project behind the
+        <a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a> web browser.</p>
+
+      <p>The metric examples presented here were collected at <a
+        href="https://chromium.googlesource.com/chromium/src.git/+/6b9bf768231fa5f7ff3712b9bed23e57c52440eb"><code>
+        6b9bf768231f</code></a> commit to the <code>master</code> branch of the Chromium source code repository.</p>
+
+      <h3>Summary</h3>
+
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4 text-center">
+          <figure class="figure border rounded">
+            <img src="/assets/images/metrics/nesting/chromium/distribution.svg"
+              class="figure-img rounded mx-auto d-block" alt="Chromium Nesting Distribution"
+              style="width: 100%;" />
+            <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1</figcaption>
+          </figure>
+        </div>
+        <div class="col-lg-4 text-center">
+          <figure class="figure border rounded">
+            <img src="/assets/images/metrics/nesting/chromium/discriminatory.svg"
+              class="figure-img rounded mx-auto d-block" alt="Chromium Nesting Discriminatory"
+              style="width: 100%;" />
+            <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2</figcaption>
+          </figure>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+
+      <p>Shown in Figure 1 is the distribution of the  metric collected from source code files in
+        the Chromium project. Shown in Figure 2 is the comparison of the distribution of the  metric
+        collected from source code files in the Chromium project that were not historically vulnerable and those
+        that were.</p>
+
+      <h3>Thresholds</h3>
+
+      <p>The thresholds of the  metric in the Chromium project determined using the approach
+        prescribed by Alves <i>et al.</i> <a href="#Alves2010Deriving">
+        [1]</a> is shown in the table below.</p>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <table class="table table-bordered text-center">
+            <tr>
+              <th class="text-left">
+                Metric Range
+              </th>
+              <th>
+                value &lt; 3
+              </th>
+              <th>
+                3 ≤ value &lt; 4
+              </th>
+              <th>
+                4 ≤ value &lt; 5
+              </th>
+              <th>
+                5 ≤ value
+              </th>
+            </tr>
+            <tr>
+              <th class="text-left">Risk Level</th>
+              <td class="table-secondary">Low</td>
+              <td class="table-info">Medium</td>
+              <td class="table-warning">High</td>
+              <td class="table-danger">Critical</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h3>Risky Files</h3>
+
+      <p>The thresholds are used to classify source code files into appropriate risk levels. Shown below are the
+        top and bottom three source code files from the Chromium project in each of the three non-trivial risk
+        levels.</p>
+
+      <div class="accordion" id="riskyFiles">
+        
+        <div class="card">
+          <div class="card-header" id="mediumRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#mediumRiskBody" aria-expanded="true"
+                aria-controls="mediumRiskBody">
+                Medium Risk
+              </button>
+            </h2>
+          </div>
+          <div id="mediumRiskBody" class="collapse show"
+            aria-labelledby="mediumRiskHeader" data-parent="#riskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Nesting</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>third_party/crashpad/crashpad/snapshot/fuchsia/memory_map_fuchsia.cc</code></td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">74.7901</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>media/audio/win/device_enumeration_win.cc</code></td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">74.7901</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/blink/renderer/platform/fonts/font_selection_types_test.cc</code></td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">74.7901</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>chrome/browser/ui/blocked_content/popup_blocker_browsertest.cc</code></td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">74.7901</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>components/autofill/core/browser/field_filler.cc</code></td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">74.7901</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/tcmalloc/gperftools-2.0/chromium/src/tests/stack_trace_table_test.cc</code></td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">74.7901</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header" id="highRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#highRiskBody" aria-expanded="true"
+                aria-controls="highRiskBody">
+                High Risk
+              </button>
+            </h2>
+          </div>
+          <div id="highRiskBody" class="collapse"
+            aria-labelledby="highRiskHeader" data-parent="#riskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Nesting</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>third_party/blink/renderer/core/html/html_slot_element_test.cc</code></td>
+                    <td class="text-right">4</td>
+                    <td class="text-right">84.8791</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>net/url_request/url_fetcher_core.cc</code></td>
+                    <td class="text-right">4</td>
+                    <td class="text-right">84.8791</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>cc/layers/picture_layer_impl.cc</code></td>
+                    <td class="text-right">4</td>
+                    <td class="text-right">84.8791</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>ppapi/examples/mouse_lock/mouse_lock.cc</code></td>
+                    <td class="text-right">4</td>
+                    <td class="text-right">84.8791</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/sqlite/patched/src/rowset.c</code></td>
+                    <td class="text-right">4</td>
+                    <td class="text-right">84.8791</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>chrome/browser/android/search_permissions/search_geolocation_disclosure_tab_helper.cc</code></td>
+                    <td class="text-right">4</td>
+                    <td class="text-right">84.8791</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header" id="criticalRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#criticalRiskBody" aria-expanded="true"
+                aria-controls="criticalRiskBody">
+                Critical Risk
+              </button>
+            </h2>
+          </div>
+          <div id="criticalRiskBody" class="collapse"
+            aria-labelledby="criticalRiskHeader" data-parent="#riskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Nesting</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>base/nix/xdg_util.cc</code></td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">92.4416</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>chrome/browser/ui/app_list/app_launch_event_logger.cc</code></td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">92.4416</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>components/subresource_filter/content/renderer/subresource_filter_agent.cc</code></td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">92.4416</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>third_party/libxml/src/testapi.c</code></td>
+                    <td class="text-right">10</td>
+                    <td class="text-right">99.9763</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/zlib/infback.c</code></td>
+                    <td class="text-right">11</td>
+                    <td class="text-right">99.9800</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>third_party/libpng/pngrutil.c</code></td>
+                    <td class="text-right">13</td>
+                    <td class="text-right">100</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div><!-- Examples -->
+
+
+<!-- References -->
+<div class="row">
+  <div class="col-lg-12">
+    <div>
+      <h1 id="references">Reference(s)</h1>
+      
+      <p id="Alves2010Deriving">[1] Tiago L. Alves, Christiaan Ypma, and Joost Visser. 2010. Deriving Metric Thresholds From Benchmark Data.
+        In Proceedings of the 26th International Conference on Software Maintenance (ICSM '10). 1-10. <a href="https://doi.org/10.1109/ICSM.2010.5609747" target="_blank">https://doi.org/10.1109/ICSM.2010.5609747</a>
+      
+      <p id="Younis2016Fear">[2] Awad Younis, Yashwant Malaiya, Charles Anderson, and Indrajit Ray. 2016. To Fear or Not to Fear That is the Question: Code Characteristics of a Vulnerable Function with an Existing Exploit.
+        In Proceedings of the 6th ACM Conference on Data and Application Security and Privacy (CODASPY '16). New York, NY, USA, 97–104. <a href="https://doi.org/10.1145/2857705.2857750" target="_blank">https://doi.org/10.1145/2857705.2857750</a>
+      
+    </div>
+  </div>
+</div><!-- References -->
+
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
