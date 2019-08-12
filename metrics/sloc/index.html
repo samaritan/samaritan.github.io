@@ -201,20 +201,20 @@
         top and bottom three source code files from the Chromium project in each of the three non-trivial risk
         levels.</p>
 
-      <div class="accordion" id="riskyFiles">
+      <div class="accordion" id="chromiumRiskyFiles">
         
         <div class="card">
-          <div class="card-header" id="mediumRiskHeader">
+          <div class="card-header" id="mediumChromiumRiskHeader">
             <h2 class="mb-0">
               <button class="btn btn-link" type="button" data-toggle="collapse"
-                data-target="#mediumRiskBody" aria-expanded="true"
-                aria-controls="mediumRiskBody">
+                data-target="#mediumChromiumRiskBody" aria-expanded="true"
+                aria-controls="mediumChromiumRiskBody">
                 Medium Risk
               </button>
             </h2>
           </div>
-          <div id="mediumRiskBody" class="collapse show"
-            aria-labelledby="mediumRiskHeader" data-parent="#riskyFiles">
+          <div id="mediumChromiumRiskBody" class="collapse show"
+            aria-labelledby="mediumChromiumRiskHeader" data-parent="#chromiumRiskyFiles">
             <div class="card-body">
               <table class="table table-bordered">
                 <thead class="thead-light">
@@ -271,17 +271,17 @@
         </div>
         
         <div class="card">
-          <div class="card-header" id="highRiskHeader">
+          <div class="card-header" id="highChromiumRiskHeader">
             <h2 class="mb-0">
               <button class="btn btn-link" type="button" data-toggle="collapse"
-                data-target="#highRiskBody" aria-expanded="true"
-                aria-controls="highRiskBody">
+                data-target="#highChromiumRiskBody" aria-expanded="true"
+                aria-controls="highChromiumRiskBody">
                 High Risk
               </button>
             </h2>
           </div>
-          <div id="highRiskBody" class="collapse"
-            aria-labelledby="highRiskHeader" data-parent="#riskyFiles">
+          <div id="highChromiumRiskBody" class="collapse"
+            aria-labelledby="highChromiumRiskHeader" data-parent="#chromiumRiskyFiles">
             <div class="card-body">
               <table class="table table-bordered">
                 <thead class="thead-light">
@@ -338,17 +338,17 @@
         </div>
         
         <div class="card">
-          <div class="card-header" id="criticalRiskHeader">
+          <div class="card-header" id="criticalChromiumRiskHeader">
             <h2 class="mb-0">
               <button class="btn btn-link" type="button" data-toggle="collapse"
-                data-target="#criticalRiskBody" aria-expanded="true"
-                aria-controls="criticalRiskBody">
+                data-target="#criticalChromiumRiskBody" aria-expanded="true"
+                aria-controls="criticalChromiumRiskBody">
                 Critical Risk
               </button>
             </h2>
           </div>
-          <div id="criticalRiskBody" class="collapse"
-            aria-labelledby="criticalRiskHeader" data-parent="#riskyFiles">
+          <div id="criticalChromiumRiskBody" class="collapse"
+            aria-labelledby="criticalChromiumRiskHeader" data-parent="#chromiumRiskyFiles">
             <div class="card-body">
               <table class="table table-bordered">
                 <thead class="thead-light">
@@ -395,6 +395,291 @@
                   <tr>
                     <td><code>third_party/sqlite/amalgamation/sqlite3.c</code></td>
                     <td class="text-right">68,243</td>
+                    <td class="text-right">100</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <h2>OpenBSD</h2>
+
+      <p>In this subsection, we present examples of the  metric collected from the UNIX-like operating
+        system developed by the <a href="https://www.openbsd.org" target="_blank">OpenBSD</a> project.</p>
+
+      <p>The metric examples presented here were collected at <a
+        href="https://github.com/openbsd/src/commit/dbdab68da3b0b11846f6b023c8e069c40aa1fd71"><code>dbdab68da3b</code>
+        </a> commit to the <code>master</code> branch of the OpenBSD source code repository.</p>
+
+      <h3>Summary</h3>
+
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4 text-center">
+          <figure class="figure border rounded">
+            <img src="/assets/images/metrics/sloc/openbsd/distribution.svg"
+              class="figure-img rounded mx-auto d-block" alt="OpenBSD Source Lines of Code Distribution"
+              style="width: 100%;" />
+            <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 1</figcaption>
+          </figure>
+        </div>
+        <div class="col-lg-4 text-center">
+          <figure class="figure border rounded">
+            <img src="/assets/images/metrics/sloc/openbsd/discriminatory.svg"
+              class="figure-img rounded mx-auto d-block" alt="OpenBSD Source Lines of Code Discriminatory"
+              style="width: 100%;" />
+            <figcaption class="figure-caption font-weight-bold bg-light text-center">Figure 2</figcaption>
+          </figure>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+
+      <p>Shown in Figure 1 is the distribution of the  metric collected from source code files in
+        the OpenBSD project. Shown in Figure 2 is the comparison of the distribution of the  metric
+        collected from source code files in the OpenBSD project that were not historically vulnerable and those
+        that were.</p>
+
+      <h3>Thresholds</h3>
+
+      <p>The thresholds of the  metric in the OpenBSD project determined using the approach
+        prescribed by Alves <i>et al.</i> <a href="#Alves2010Deriving">
+        [1]</a> is shown in the table below.</p>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <table class="table table-bordered text-center">
+            <tr>
+              <th class="text-left">
+                Metric Range
+              </th>
+              <th>
+                value &lt; 2,530
+              </th>
+              <th>
+                2,530 ≤ value &lt; 4,299
+              </th>
+              <th>
+                4,299 ≤ value &lt; 7,755
+              </th>
+              <th>
+                7,755 ≤ value
+              </th>
+            </tr>
+            <tr>
+              <th class="text-left">Risk Level</th>
+              <td class="table-secondary">Low</td>
+              <td class="table-info">Medium</td>
+              <td class="table-warning">High</td>
+              <td class="table-danger">Critical</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h3>Risky Files</h3>
+
+      <p>The thresholds are used to classify source code files into appropriate risk levels. Shown below are the
+        top and bottom three source code files from the OpenBSD project in each of the three non-trivial risk
+        levels.</p>
+
+      <div class="accordion" id="openbsdRiskyFiles">
+        
+        <div class="card">
+          <div class="card-header" id="mediumOpenBSDRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#mediumOpenBSDRiskBody" aria-expanded="true"
+                aria-controls="mediumOpenBSDRiskBody">
+                Medium Risk
+              </button>
+            </h2>
+          </div>
+          <div id="mediumOpenBSDRiskBody" class="collapse show"
+            aria-labelledby="mediumOpenBSDRiskHeader" data-parent="#openbsdRiskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Source Lines of Code</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>gnu/llvm/tools/clang/lib/Parse/ParseObjc.cpp</code></td>
+                    <td class="text-right">2,530</td>
+                    <td class="text-right">70.0137</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/gcc/gcc/cp/semantics.c</code></td>
+                    <td class="text-right">2,532</td>
+                    <td class="text-right">70.0416</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>sys/dev/pci/drm/i915/intel_ddi.c</code></td>
+                    <td class="text-right">2,533</td>
+                    <td class="text-right">70.0695</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>gnu/gcc/gcc/cp/call.c</code></td>
+                    <td class="text-right">4,273</td>
+                    <td class="text-right">79.8920</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>sys/dev/microcode/symbol/spectrum24t_cf.h</code></td>
+                    <td class="text-right">4,286</td>
+                    <td class="text-right">79.9392</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/usr.bin/gcc/gcc/c-common.c</code></td>
+                    <td class="text-right">4,295</td>
+                    <td class="text-right">79.9865</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header" id="highOpenBSDRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#highOpenBSDRiskBody" aria-expanded="true"
+                aria-controls="highOpenBSDRiskBody">
+                High Risk
+              </button>
+            </h2>
+          </div>
+          <div id="highOpenBSDRiskBody" class="collapse"
+            aria-labelledby="highOpenBSDRiskHeader" data-parent="#openbsdRiskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Source Lines of Code</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>gnu/usr.bin/binutils-2.17/bfd/xcofflink.c</code></td>
+                    <td class="text-right">4,299</td>
+                    <td class="text-right">80.0338</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/usr.bin/binutils-2.17/bfd/elfxx-ia64.c</code></td>
+                    <td class="text-right">4,318</td>
+                    <td class="text-right">80.0814</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/llvm/lib/Target/PowerPC/PPCISelDAGToDAG.cpp</code></td>
+                    <td class="text-right">4,319</td>
+                    <td class="text-right">80.1290</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>sys/dev/pci/if_em_hw.c</code></td>
+                    <td class="text-right">7,579</td>
+                    <td class="text-right">89.7582</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>sys/dev/microcode/myx/ethp_z8e.h</code></td>
+                    <td class="text-right">7,587</td>
+                    <td class="text-right">89.8418</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/gcc/gcc/combine.c</code></td>
+                    <td class="text-right">7,712</td>
+                    <td class="text-right">89.9267</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header" id="criticalOpenBSDRiskHeader">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#criticalOpenBSDRiskBody" aria-expanded="true"
+                aria-controls="criticalOpenBSDRiskBody">
+                Critical Risk
+              </button>
+            </h2>
+          </div>
+          <div id="criticalOpenBSDRiskBody" class="collapse"
+            aria-labelledby="criticalOpenBSDRiskHeader" data-parent="#openbsdRiskyFiles">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Path</th>
+                    <th>Source Lines of Code</th>
+                    <th>Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <td><code>gnu/llvm/lib/Analysis/ScalarEvolution.cpp</code></td>
+                    <td class="text-right">7,755</td>
+                    <td class="text-right">90.0121</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/llvm/lib/Target/AArch64/AArch64ISelLowering.cpp</code></td>
+                    <td class="text-right">7,803</td>
+                    <td class="text-right">90.0981</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/gcc/gcc/config/sh/sh.c</code></td>
+                    <td class="text-right">7,811</td>
+                    <td class="text-right">90.1841</td>
+                  </tr>
+                
+                  <td colspan=3>...</td>
+                
+                  <tr>
+                    <td><code>gnu/usr.bin/binutils-2.17/opcodes/m32c-desc.c</code></td>
+                    <td class="text-right">49,967</td>
+                    <td class="text-right">98.5500</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>sys/dev/microcode/udl/udl_huffman.h</code></td>
+                    <td class="text-right">65,542</td>
+                    <td class="text-right">99.2720</td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>gnu/usr.bin/binutils-2.17/opcodes/m32c-opc.c</code></td>
+                    <td class="text-right">66,091</td>
                     <td class="text-right">100</td>
                   </tr>
                 
