@@ -38,6 +38,7 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">Name</th>
+          <th scope="col">Languages</th>
           <th scope="col">Definition</th>
         </tr>
       </thead>
@@ -45,11 +46,17 @@
         <tr>
           <th scope="row"><a href="/metrics/churn">Churn</a></th>
           <td>
+            Independent
+          </td>
+          <td>
             The total number of lines added, modified, and deleted throughout the history of a file.
             <a href="#Zimmermann2010Searching">[3]</a>
           </td>
         </tr><tr>
           <th scope="row"><a href="/metrics/collaboration">Collaboration Centrality</a></th>
+          <td>
+            Independent
+          </td>
           <td>
             The maximum of the edge centrality of edges representing files in a collaboration network. A collaboration network is an unweighted and undirected graph in which nodes represent developers and edges represent files. An edge exists between two developers if they both changed at least one file.
             <a href="#Meneely2009Secure">[1]</a>
@@ -57,11 +64,17 @@
         </tr><tr>
           <th scope="row"><a href="/metrics/complexity">Cyclomatic Complexity</a></th>
           <td>
+            C/C++, C#, Ada, Basic, Fortran, Java, Jovial, Pascal, PL/M, Python, VHDL, Cobol, Web
+          </td>
+          <td>
             The number of unique decision paths through a function.
             <a href="#Younis2016Fear">[2]</a>
           </td>
         </tr><tr>
           <th scope="row"><a href="/metrics/contribution">Contribution Centrality</a></th>
+          <td>
+            Independent
+          </td>
           <td>
             The node betweenness centrality of nodes representing files in a contribution network. A contribution network is a weighted and undirected bipartite graph with two sets of nodes: files and developers. An edge exists between a developer node and a file node if the developer made a change (commit) to the file. The weight of the edge is the number of changes a single developer made to a particular file.
             <a href="#Meneely2009Secure">[1]</a>
@@ -69,11 +82,17 @@
         </tr><tr>
           <th scope="row"><a href="/metrics/nesting">Nesting</a></th>
           <td>
+            C/C++, C#, Ada, Basic, Fortran, Java, Jovial, Pascal, Python, Web
+          </td>
+          <td>
             The maximum nesting level of control structures in a function.
             <a href="#Younis2016Fear">[2]</a>
           </td>
         </tr><tr>
           <th scope="row"><a href="/metrics/ninput">Number of Inputs</a></th>
+          <td>
+            C/C++, C#, Fortran, Java
+          </td>
           <td>
             The number of inputs that a function uses.
             <a href="#Younis2016Fear">[2]</a>
@@ -81,17 +100,26 @@
         </tr><tr>
           <th scope="row"><a href="/metrics/noutput">Number of Outputs</a></th>
           <td>
+            C/C++, C#, Fortran, Java
+          </td>
+          <td>
             The number of functions that a function calls.
             <a href="#Younis2016Fear">[2]</a>
           </td>
         </tr><tr>
           <th scope="row"><a href="/metrics/npath">Number of Paths</a></th>
           <td>
+            C/C++, C#, Ada, Basic, Fortran, Java, Jovial, Pascal, Python, Web
+          </td>
+          <td>
             The number of unique decision paths through a function.
             <a href="#Younis2016Fear">[2]</a>
           </td>
         </tr><tr>
           <th scope="row"><a href="/metrics/sloc">Source Lines of Code</a></th>
+          <td>
+            C/C++, C#, Ada, Basic, Fortran, Java, Jovial, Pascal, PL/M, Python, VHDL, Cobol, Web
+          </td>
           <td>
             The number of source lines of code in a file.
             <a href="#Zimmermann2010Searching">[3]</a>
