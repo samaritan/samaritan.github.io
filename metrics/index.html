@@ -33,102 +33,74 @@
 
     <p>We have the following vulnerability discovery metrics implemented in the Samaritan project. If you want
       to know more about a specific metric, please click the name of the metric.</p>
+
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><a href="/metrics/churn">Churn</a></th>
+          <td>
+            The total number of lines added, modified, and deleted throughout the history of a file.
+            <a href="#Zimmermann2010Searching">[3]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/collaboration">Collaboration Centrality</a></th>
+          <td>
+            The maximum of the edge centrality of edges representing files in a collaboration network. A collaboration network is an unweighted and undirected graph in which nodes represent developers and edges represent files. An edge exists between two developers if they both changed at least one file.
+            <a href="#Meneely2009Secure">[1]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/complexity">Cyclomatic Complexity</a></th>
+          <td>
+            The number of unique decision paths through a function.
+            <a href="#Younis2016Fear">[2]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/contribution">Contribution Centrality</a></th>
+          <td>
+            The node betweenness centrality of nodes representing files in a contribution network. A contribution network is a weighted and undirected bipartite graph with two sets of nodes: files and developers. An edge exists between a developer node and a file node if the developer made a change (commit) to the file. The weight of the edge is the number of changes a single developer made to a particular file.
+            <a href="#Meneely2009Secure">[1]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/nesting">Nesting</a></th>
+          <td>
+            The maximum nesting level of control structures in a function.
+            <a href="#Younis2016Fear">[2]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/ninput">Number of Inputs</a></th>
+          <td>
+            The number of inputs that a function uses.
+            <a href="#Younis2016Fear">[2]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/noutput">Number of Outputs</a></th>
+          <td>
+            The number of functions that a function calls.
+            <a href="#Younis2016Fear">[2]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/npath">Number of Paths</a></th>
+          <td>
+            The number of unique decision paths through a function.
+            <a href="#Younis2016Fear">[2]</a>
+          </td>
+        </tr><tr>
+          <th scope="row"><a href="/metrics/sloc">Source Lines of Code</a></th>
+          <td>
+            The number of source lines of code in a file.
+            <a href="#Zimmermann2010Searching">[3]</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<dl class="row">
-  
-  <dt class="col-lg-3"><a href="/metrics/churn">Churn</a></dt>
-  <dd class="col-lg-9">
-    <p>The total number of lines added, modified, and deleted throughout the history of a file.
-    
-    
-    <a href="#Zimmermann2010Searching">[3]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/collaboration">Collaboration Centrality</a></dt>
-  <dd class="col-lg-9">
-    <p>The maximum of the edge centrality of edges representing files in a collaboration network. A collaboration network is an unweighted and undirected graph in which nodes represent developers and edges represent files. An edge exists between two developers if they both changed at least one file.
-    
-    
-    <a href="#Meneely2009Secure">[1]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/complexity">Cyclomatic Complexity</a></dt>
-  <dd class="col-lg-9">
-    <p>The number of unique decision paths through a function.
-    
-    
-    <a href="#Younis2016Fear">[2]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/contribution">Contribution Centrality</a></dt>
-  <dd class="col-lg-9">
-    <p>The node betweenness centrality of nodes representing files in a contribution network. A contribution network is a weighted and undirected bipartite graph with two sets of nodes: files and developers. An edge exists between a developer node and a file node if the developer made a change (commit) to the file. The weight of the edge is the number of changes a single developer made to a particular file.
-    
-    
-    <a href="#Meneely2009Secure">[1]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/nesting">Nesting</a></dt>
-  <dd class="col-lg-9">
-    <p>The maximum nesting level of control structures in a function.
-    
-    
-    <a href="#Younis2016Fear">[2]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/ninput">Number of Inputs</a></dt>
-  <dd class="col-lg-9">
-    <p>The number of inputs that a function uses.
-    
-    
-    <a href="#Younis2016Fear">[2]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/noutput">Number of Outputs</a></dt>
-  <dd class="col-lg-9">
-    <p>The number of functions that a function calls.
-    
-    
-    <a href="#Younis2016Fear">[2]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/npath">Number of Paths</a></dt>
-  <dd class="col-lg-9">
-    <p>The number of unique decision paths through a function.
-    
-    
-    <a href="#Younis2016Fear">[2]</a>
-    
-    </p>
-  </dd>
-  
-  <dt class="col-lg-3"><a href="/metrics/sloc">Source Lines of Code</a></dt>
-  <dd class="col-lg-9">
-    <p>The number of source lines of code in a file.
-    
-    
-    <a href="#Zimmermann2010Searching">[3]</a>
-    
-    </p>
-  </dd>
-  
-</dl>
 
 
 <!-- References -->
